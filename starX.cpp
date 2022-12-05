@@ -11,7 +11,22 @@ void runTests(void);
 
 string starX(int width)
 {
-  return "stub";
+  if (width < 3 || width % 2 == 0) {
+    return "";
+  }
+  string result = "";
+  for (int i = 0; i < width; i++) {
+    for (int j = 0; j < width; j++) {
+      if (i == j || i + j + 1 == width) {
+        result += "*";
+      }
+      else {
+        result += " ";
+      }
+    }
+    result += "\n";
+  }
+  return result;
 }
 
 // Test-Driven Development;
@@ -66,6 +81,21 @@ void assertEquals(string expected, string actual, string message = "")
 
 int main(int argc, char *argv[])
 {
-  return 0;
+  if (argc != 2 || stoi(argv[1]) % 2 == 0 || stoi(argv[1]) < 3)
+  {
+    cerr << "Usage: " << argv[0] << " width" << endl;
+    exit(1);
+  }
+
+  int width = stoi(argv[1]);
+  // If the program is executed with parameters -1 -1 unit test
+  // the starL() function using our automated test framework
+  if (width == -1)
+  {
+    runTests();
+    exit(0);
+  }
+
+  cout << starX(width);
 }
 
